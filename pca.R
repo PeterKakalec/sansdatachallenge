@@ -1,0 +1,8 @@
+library(rio)
+library(tidyverse)
+library(factoextra)
+pcadat<-read.csv("study4_subjectiveRatings_LONG.csv")
+pcadat.w<-pcadat %>% pivot_wider(names_from="emotion",values_from="score")
+pcadat.pc<-prcomp(pcadat.w %>% select(-id,-time),scale=TRUE)
+emotePlot<-fviz_pca_biplot(pcadat.pc,label="var")
+sort(pcadat.pc,decreasing=TRUE)
